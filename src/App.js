@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import _ from 'lodash';
@@ -14,7 +13,7 @@ const Stars = (props) => {
         )}
     </div>
   );
-}
+};
 
 const Button = (props) => {
   return (
@@ -22,37 +21,46 @@ const Button = (props) => {
       <button>=</button>
     </div>
   );
-}
+};
 
 const Answer = (props) => {
   return (
     <div className="col-5">
-      <span>5</span>
-      <span>6</span>
+        {props.selectedNumbers.map((number, i) =>
+            <span key={i}>{number}</span>
+        )}
     </div>
   );
-}
+};
 
 
 const Numbers = (props) => {
   //const arrayOfNumbers = _.range(1, 10);
+    const numberClassName = (number) => {
+        if (props.selectedNumbers.indexOf(number) >= 0) {
+            return 'selected';
+        }
+    };
   return (
     <div className="card text-center">
     <div>
         {Numbers.list.map((number, i) =>
-          <span key={i}>{number}</span>
+          <span key={i} className={numberClassName(number)}>{number}</span>
         )}
     
       </div>
     </div>
   )
-}
+};
 
 Numbers.list = _.range(1, 10);
 
 
 class Game extends Component {
-  render() {
+  state = {
+      selectedNumbers : [2, 4],
+  };
+    render() {
     return (
       <div className="container">
         <h3>Play Nine</h3>
@@ -60,9 +68,9 @@ class Game extends Component {
         <div className="row">
           <Stars />
           <Button />
-          <Answer />
+          <Answer selectedNumbers={this.state.selectedNumbers}/>
         </div>
-        <Numbers />
+        <Numbers selectedNumbers={this.state.selectedNumbers}/>
       </div>
     )
   }
