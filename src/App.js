@@ -45,7 +45,10 @@ const Numbers = (props) => {
     <div className="card text-center">
     <div>
         {Numbers.list.map((number, i) =>
-          <span key={i} className={numberClassName(number)}>{number}</span>
+          <span key={i} className={numberClassName(number)}
+                onClick={() => props.selectNumber(number)}>
+              {number}
+              </span>
         )}
     
       </div>
@@ -58,7 +61,13 @@ Numbers.list = _.range(1, 10);
 
 class Game extends Component {
   state = {
-      selectedNumbers : [2, 4],
+      selectedNumbers : [],
+  };
+
+  selectNumber = (clickedNumber) => {
+      this.setState(prevState => ({
+          selectedNumbers:prevState.selectedNumbers.concat(clickedNumber)
+      }));
   };
     render() {
     return (
@@ -70,7 +79,8 @@ class Game extends Component {
           <Button />
           <Answer selectedNumbers={this.state.selectedNumbers}/>
         </div>
-        <Numbers selectedNumbers={this.state.selectedNumbers}/>
+        <Numbers selectedNumbers={this.state.selectedNumbers}
+                 selectNumber={this.selectNumber}/>
       </div>
     )
   }
