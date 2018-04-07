@@ -10,7 +10,7 @@ const Stars = (props) => {
   return (
     <div className="col-5">
         {_.range(numberOfStars).map(i=>
-          <i key={i} className="fas fa-smile"></i>
+          <i key={i} className="fas fa-smile" aria-hidden="true"></i>
         )}
     </div>
   );
